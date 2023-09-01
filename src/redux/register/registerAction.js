@@ -32,17 +32,51 @@ const loginUser = (data) => {
         },
       })
       .then((res) => {
-        document.cookie = `username=${res.data.username}`
-        document.cookie = `name=${res.data.name}`
-        document.cookie = `token=${res.data.token}`
-        document.cookie = `id=${res.data.id}`
-        dispatch(loginUserSuccess(res.data));
+        setTimeout(() => {
+          document.cookie = `username=${res.data.username}`;
+          document.cookie = `name=${res.data.name}`;
+          document.cookie = `token=${res.data.token}`;
+          document.cookie = `id=${res.data.id}`;
+          dispatch(loginUserSuccess(res.data));
+        }, 1000);
       })
       .catch((err) => {
-        console.log(err);
-        // dispatch(loginUserfaild(err))
+        console.log(err.response.data);
+        dispatch(loginUserfaild(err.response.data));
       });
   };
 };
 
-export { loginUser , loginUserSuccess };
+const registerUser = (data) => {
+  return (dispatch) => {
+    dispatch(fetchUserData());
+    axios
+      .post("/auth/register", data, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        const user = {
+          name : data.username,
+          username : data.username,
+          token : res.data.token ,
+          id : res.data.id,
+        }
+        setTimeout(() => {
+          document.cookie = `username=${data.username}`;
+          document.cookie = `name=${data.name}`;
+          document.cookie = `token=${res.data.token}`;
+          document.cookie = `id=${res.data.id}`;
+          dispatch(loginUserSuccess(user));
+        }, 1000);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+        dispatch(loginUserfaild(err.response.data));
+      });
+  };
+};
+
+export { loginUser, loginUserSuccess, registerUser };

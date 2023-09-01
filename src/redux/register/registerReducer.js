@@ -16,24 +16,24 @@ const registerReducer = (state = initialState, action) => {
       return {
         user: action.payload,
         loading: false,
-        err: null,
+        error: null,
       };
     case "REGISTER_USER_SUCCESS":
       return {
         user: action.payload,
         loading: false,
-        err: null,
+        error: null,
       };
     // faild
     case "LOGIN_USER_FAILD":
       return {
-        err: action.payload,
+        error: action.payload,
         loading: false,
         user: null,
       };
     case "REGISTER_USER_FAILD":
       return {
-        err: action.payload,
+        error: action.payload,
         loading: false,
         user: null,
       };

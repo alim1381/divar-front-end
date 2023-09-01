@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../../redux/register/registerAction";
 import Loader from "../shared/Loader";
 import Error404 from "../shared/404";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Login() {
   const navigate = useNavigate();
   const { loading, user, error } = useSelector((state) => state.userState);
   const dispatch = useDispatch();
+  const [pressed, setPressed] = useState(false);
   const [sendData, setSendData] = useState({
     username: "",
     password: "",
@@ -23,19 +26,37 @@ function Login() {
 
   const sendHandler = () => {
     dispatch(loginUser(sendData));
+    setPressed(true);
   };
 
-  if (user) {
-    navigate("/");
-  }
+  useEffect(() => {
+    if (error && pressed) {
+      if (error.message) {
+        toast.error(error.message, { position: "top-center" });
+      } else {
+        toast.error("انجام عملیات با خطا مواجه شد!", {
+          position: "top-center",
+        });
+      }
+      setPressed(false);
+    }
+  }, [error]);
 
-  if (loading) return <Loader />;
+  useEffect(() => {
+    if (user && pressed) {
+      toast.success("درحال انتقال به صفحه اصلی...", { position: "top-center" });
+      setPressed(false);
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+    }
+  } , [user]);
 
-  if (error) return <Error404 />;
   return (
     <div
       dir="rtl"
       className="mt-10 m-auto bg-white rounded-lg shadow sm:max-w-md sm:w-full sm:mx-auto sm:overflow-hidden dark:bg-gray-800">
+      <ToastContainer />
       <div className="px-4 py-8 sm:px-10">
         <div className="relative mt-6">
           <div className="absolute inset-0 flex items-center">
@@ -78,9 +99,10 @@ function Login() {
                 <button
                   type="button"
                   onClick={sendHandler}
-                  className="py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                  className="py-2 px-4 mb-2  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
                   ورود
                 </button>
+                {loading && <Loader />}
               </span>
             </div>
           </div>

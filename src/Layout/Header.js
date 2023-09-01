@@ -26,6 +26,7 @@ export function Header() {
             <Link className="flex-shrink-0 md:mr-4 " to="/">
               <h2 className="dark:text-white p-2 text-indigo-600 font-bold">
                 دیوار اشعار
+                {user && <span className=" font-normal mr-2 text-gray-400">(کاربر : {user.name})</span>}
               </h2>
             </Link>
             <div className="hidden md:block">
