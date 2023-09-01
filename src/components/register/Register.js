@@ -1,0 +1,96 @@
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
+function Register() {
+  const [sendData, setSendData] = useState({
+    name : "",
+    username: "",
+    password: "",
+  });
+
+  const changeHandler = (e) => {
+    setSendData((prev) => ({
+      ...prev,
+      [e.target.id]: e.target.value,
+    }));
+  };
+
+  return (
+    <div
+      dir="rtl"
+      className="mt-10 m-auto bg-white rounded-lg shadow sm:max-w-md sm:w-full sm:mx-auto sm:overflow-hidden dark:bg-gray-800">
+      <div className="px-4 py-8 sm:px-10">
+        <div className="relative mt-6">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-gray-300"></div>
+          </div>
+          <div className="relative flex justify-center text-sm leading-5">
+            <span className="px-2 text-gray-500 bg-white dark:text-white dark:bg-gray-800">
+              ورود به حساب کاربری
+            </span>
+          </div>
+        </div>
+        <div className="mt-6">
+          <div className="w-full space-y-6">
+            <div className="w-full">
+              <div className=" relative ">
+                <input
+                  type="text"
+                  id="username"
+                  className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                  placeholder="نام"
+                  onChange={changeHandler}
+                  value={sendData.name}
+                />
+              </div>
+            </div>
+            <div className="w-full">
+              <div className=" relative ">
+                <input
+                  type="text"
+                  id="username"
+                  className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                  placeholder="نام کاربری"
+                  onChange={changeHandler}
+                  value={sendData.username}
+                />
+              </div>
+            </div>
+            <div className="w-full">
+              <div className=" relative ">
+                <input
+                  type="text"
+                  id="password"
+                  className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                  placeholder="رمز عبور"
+                  onChange={changeHandler}
+                  value={sendData.password}
+                />
+              </div>
+            </div>
+            <div>
+              <span className="block w-full rounded-md shadow-sm">
+                <button
+                  type="button"
+                  className="py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                  ورود
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="px-4 py-6 border-t-2 border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800 sm:px-10">
+        <p className=" text-sm text-center leading-5 text-gray-500 dark:text-white ">
+          اگه حساب کاربری دارید از{" "}
+          <Link to={"/login"} className=" text-indigo-600 font-bold">
+            اینجا
+          </Link>{" "}
+          ورود کنید
+        </p>
+      </div>
+    </div>
+  );
+}
+
+export default Register;
