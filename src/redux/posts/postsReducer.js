@@ -12,6 +12,8 @@ const postsReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: true,
+        createPostData : null,
+        createPostError : null,
       };
     case "FETCH_POSTS_SUCCESS":
       return {

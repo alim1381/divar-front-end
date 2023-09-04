@@ -8,6 +8,7 @@ import Login from "./components/register/Login";
 import Register from './components/register/Register'
 import PrivetePages from "./auth/PrivetePages";
 import UsersPage from "./components/usersPage/UsersPage";
+import OneUserPage from "./components/usersPage/OneUserPage";
 function App() {
   return (
     <Provider store={store}>
@@ -15,8 +16,9 @@ function App() {
         <Routes>
           <Route path="/" element={<ViewPosts />}/>
 
+          <Route path="/users" element={<UsersPage />}/>
+          <Route path="/users/:id" element={<OneUserPage />}/>
           {/* Private Route */}
-          <Route path="/users" element={<PrivetePages Component={<UsersPage />}/>}/>
 
           {/* Login and register */}
           <Route path="/login" element={<Login />}/>

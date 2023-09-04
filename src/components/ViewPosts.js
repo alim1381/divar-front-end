@@ -13,9 +13,7 @@ export function ViewPosts() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // if (user) {
       dispatch(getAllPosts());
-    // }
   }, [createPostData]);
 
   if (loading) return <Loader />;
