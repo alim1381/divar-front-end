@@ -16,9 +16,9 @@ function UsersPage() {
 
   if (error) return <Error404 />
   return (
-    <div className="w-2/3 p-3 mt-10 max-md:grid-cols-1 max-md:w-full">
+    <div className="w-full p-3 mt-10 max-md:grid-cols-1 max-md:w-full">
       {loading && <Loader />}
-      <ul class="grid grid-cols-3 gap-3 ">
+      <ul className="grid grid-cols-3 gap-3 ">
         {users &&
           users.map((oneUser) => (
             <Link to={`/users/${oneUser._id}`}>

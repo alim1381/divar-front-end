@@ -25,9 +25,9 @@ function Layout({ children }) {
   return (
     <div className="flex flex-col bg-indigo-50 dark:bg-gray-700 h-full min-h-screen">
       <Header />
-      <div className="flex max-md:flex-col-reverse  mt-16">
+      <div className="mx-auto max-w-7xl w-full flex max-md:flex-col-reverse  mt-16">
         {children}
-        {!(pathname === "/login" || pathname === "/register") && user ? (
+        {(pathname === "/" ) && user ? (
           <div className="w-1/3 p-3 max-md:w-full flex justify-center">
             <PostForm />
           </div>

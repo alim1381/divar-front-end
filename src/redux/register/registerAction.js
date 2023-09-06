@@ -35,6 +35,7 @@ const loginUser = (data) => {
         setTimeout(() => {
           document.cookie = `username=${res.data.username}`;
           document.cookie = `name=${res.data.name}`;
+          document.cookie = `image=${res.data.image}`;
           document.cookie = `token=${res.data.token}`;
           document.cookie = `id=${res.data.id}`;
           dispatch(loginUserSuccess(res.data));
@@ -53,7 +54,7 @@ const registerUser = (data) => {
     axios
       .post("/auth/register", data, {
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Type": "multipart/form-data",
         },
       })
       .then((res) => {
@@ -67,13 +68,14 @@ const registerUser = (data) => {
         setTimeout(() => {
           document.cookie = `username=${data.username}`;
           document.cookie = `name=${data.name}`;
+          document.cookie = `image=${res.data.image}`;
           document.cookie = `token=${res.data.token}`;
           document.cookie = `id=${res.data.id}`;
           dispatch(loginUserSuccess(user));
         }, 1000);
       })
       .catch((err) => {
-        console.log(err.response.data);
+        console.log(err);
         dispatch(loginUserfaild(err.response.data));
       });
   };

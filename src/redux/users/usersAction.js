@@ -24,7 +24,7 @@ const getAllUsers = () => {
         dispatch(fetchUsersSuccess(res.data.users));
       })
       .catch((err) => {
-        dispatch(fetchUsersFaild(err.response.message));
+        dispatch(fetchUsersFaild(err.response ? err.response.message : "Error"));
       });
   };
 };
@@ -37,7 +37,7 @@ const getOneUserById = (id) => {
         dispatch(fetchOneUserSuccess(res.data));
       })
       .catch((err) => {
-        dispatch(fetchUsersFaild(err.response.message));
+        dispatch(fetchUsersFaild(err.response ? err.response.message : "Error"));
       });
   };
 };

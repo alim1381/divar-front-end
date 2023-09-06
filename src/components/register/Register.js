@@ -15,6 +15,7 @@ function Register() {
     name: "",
     username: "",
     password: "",
+    image : null
   });
 
   const changeHandler = (e) => {
@@ -105,6 +106,7 @@ function Register() {
                 />
               </div>
             </div>
+            <input type="file" name="image" onChange={(e) => setSendData(prev => ({...prev , [e.target.name] : e.target.files[0]}))}/>
             <div>
               <span className="block w-full rounded-md shadow-sm">
                 <button
