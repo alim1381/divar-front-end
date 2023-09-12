@@ -27,13 +27,21 @@ const createPostsFaild = (err) => ({
   payload: err,
 });
 
-const getAllPosts = () => {
+const isFinishedData = () => ({
+  type: "IS_FINISHED_DATA",
+});
+
+const getAllPosts = (page) => {
   return (dispatch) => {
     dispatch(fetchPosts());
     axios
-      .get("/posts")
+      .get(`/posts?page=${page}`)
       .then((res) => {
-        dispatch(fetchPostsSuccess(res.data.data.reverse()));
+        if (res.data.data.length > 0) {
+          dispatch(fetchPostsSuccess(res.data.data));
+        } else {
+          dispatch(isFinishedData());
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -42,14 +50,14 @@ const getAllPosts = () => {
   };
 };
 
-const createNewPost = (data , token) => {
+const createNewPost = (data, token) => {
   return (dispatch) => {
     dispatch(fetchPosts());
     axios
       .post("/posts/create", data, {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
-          authorization: `bearer ${token}`
+          authorization: `bearer ${token}`,
         },
       })
       .then((res) => {
